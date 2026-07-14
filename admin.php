@@ -20,13 +20,29 @@
             <div class="card-body">
                 <form ng-submit="addPost()">
                     <div class="mb-3">
-                        <input type="text" class="form-control" ng-model="newPost.title" placeholder="Title" required>
+                        <input
+                            type="text"
+                            class="form-control"
+                            ng-model="newPost.title"
+                            placeholder="Title"
+                            required>
                     </div>
                     <div class="mb-3">
-                        <textarea class="form-control" ng-model="newPost.content" rows="4" placeholder="Content" required></textarea>
+                        <textarea
+                            class="form-control"
+                            ng-model="newPost.content"
+                            rows="4"
+                            placeholder="Content"
+                            required>
+                        </textarea>
                     </div>
                     <div class="mb-3">
-                        <input type="text" class="form-control" ng-model="newPost.category" placeholder="Category" required>
+                        <input
+                            type="text"
+                            class="form-control"
+                            ng-model="newPost.category"
+                            placeholder="Category"
+                            required>
                     </div>
                     <button type="submit" class="btn btn-success">Save Post</button>
                 </form>
@@ -34,7 +50,14 @@
         </div>
 
         <!-- Posts List -->
-        <h3>Posts List</h3>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="mb-0">Posts List</h3>
+            <input
+                type="text"
+                class="form-control w-25"
+                placeholder="Search..."
+                ng-model="searchText">
+        </div>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -45,13 +68,21 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="post in posts">
+                <tr ng-repeat="post in posts | filter:searchText">
                     <td>{{post.id}}</td>
                     <td>{{post.title}}</td>
                     <td>{{post.category}}</td>
                     <td>
-                        <button class="btn btn-sm btn-warning" ng-click="editPost(post)">Edit</button>
-                        <button class="btn btn-sm btn-danger" ng-click="deletePost(post.id)">Delete</button>
+                        <button
+                            class="btn btn-sm btn-warning"
+                            ng-click="editPost(post)">
+                            Edit
+                        </button>
+                        <button
+                            class="btn btn-sm btn-danger"
+                            ng-click="deletePost(post.id)">
+                            Delete
+                        </button>
                     </td>
                 </tr>
             </tbody>
@@ -64,7 +95,11 @@
 
                     <div class="modal-header">
                         <h5 class="modal-title">Edit Post</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal">
+                        </button>
                     </div>
 
                     <div class="modal-body">
@@ -81,7 +116,8 @@
                             <textarea
                                 class="form-control"
                                 ng-model="editPostData.content"
-                                rows="5"></textarea>
+                                rows="5">
+                            </textarea>
                         </div>
 
                         <div class="mb-3">
@@ -123,6 +159,8 @@
             $scope.posts = [];
             $scope.newPost = {};
             $scope.editPostData = {};
+
+            $scope.searchText = "";
 
             function loadPosts() {
                 $http.get('api.php').then(function(response) {
